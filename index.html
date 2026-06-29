@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+        content="EditVerse3D: High-Quality 3D Object Editing with Region-Aware Learning.">
+  <meta name="keywords" content="3D Editing, Region-Aware Learning, 3D Editing Dataset, TRELLIS, Diffusion">
+  <title>EditVerse3D: High-Quality 3D Object Editing with Region-Aware Learning</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+</head>
+<body>
+
+<!-- ============ Title & Authors ============ -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">EditVerse3D: High-Quality 3D Object Editing<br>with Region-Aware Learning</h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              Youtan Yin<sup>1,2</sup><a href="https://orcid.org/0000-0002-7321-7927" target="_blank" rel="noopener"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" alt="ORCID" style="vertical-align:text-bottom;margin-left:2px;"></a>,</span>
+            <span class="author-block">Yanning Zhou<sup>2</sup>,</span>
+            <span class="author-block">Jiacheng Wei<sup>1</sup>,</span>
+            <span class="author-block">Xiaofeng Yang<sup>1</sup>,</span>
+            <span class="author-block">Jun Zhang<sup>2</sup>,</span>
+            <br>
+            <span class="author-block">Jiayang Bai<sup>2</sup>,</span>
+            <span class="author-block">Jingwen Ye<sup>2</sup>,</span>
+            <span class="author-block">Weidong Zhang<sup>2</sup>,</span>
+            <span class="author-block">Guosheng Lin<sup>1</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>College of Computing and Data Science, Nanyang Technological University</span><br>
+            <span class="author-block"><sup>2</sup>Tencent AIPD</span>
+          </div>
+
+          <!-- ============ Link buttons (placeholders, non-navigating) ============ -->
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- Paper -->
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark" onclick="return false;" aria-disabled="true">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- arXiv -->
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark" onclick="return false;" aria-disabled="true">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code -->
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark" onclick="return false;" aria-disabled="true">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Abstract ============ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Local editing of 3D objects remains a long-standing challenge.
+            When interacting with 3D content, humans naturally tend to specify a coarse region of interest for modification rather than defining precise editing boundaries. However, previous methods rely on fully edited 2D images, precise 3D masks, or redundant pipelines, which present a gap.
+            To bridge this gap, we propose EditVerse3D, a novel 3D editing framework that enables high-quality object editing under such coarse guidance. Our approach takes as input a 3D object to be edited, a coarse 3D bounding box indicating the target region, and a reference 2D image describing the desired modification.
+            It produces a coherent, high-fidelity edited 3D object. To facilitate this editing, we introduce a novel region-aware adaptive loss that emphasizes hard-to-learn regions and balances the objective between target and preserved areas.
+            Complementing our loss function, we enhance model robustness and generalization through targeted data augmentations, such as training with scaled 3D masks and filtering out unrealistic editing pairs.
+            We construct a large-scale 3D editing dataset derived from parts information.
+            Extensive experiments demonstrate that EditVerse3D achieves superior visual quality and quantitative performance compared to existing 3D editing approaches.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Overview ============ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered">
+        <h2 class="title is-3">Method Overview</h2>
+        <img src="./static/images/overview.png" alt="Method overview of EditVerse3D" style="width:100%;height:auto;">
+        <p class="has-text-justified" style="margin-top:1rem;">
+          Given a masked 3D object as input, we first extract its structure and texture latents using the TRELLIS encoder. The input latents are concatenated with a binary mask and random noise along the feature channel dimension, then fed into the flow-matching model, which takes the editing target as a condition. The flow model generates edited latents, which decode into the final result.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Footer ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            This website is licensed under a
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+            Template adapted from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

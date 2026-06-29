@@ -1,0 +1,39 @@
+body {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.publication-title {
+  font-family: 'Google Sans', sans-serif;
+}
+
+.publication-authors {
+  font-family: 'Google Sans', sans-serif;
+  margin-top: 1rem;
+}
+
+.publication-authors .author-block {
+  display: inline-block;
+}
+
+.publication-links {
+  margin-top: 1.5rem;
+}
+
+.publication-links .link-block {
+  margin: 0 0.25rem;
+}
+
+.author-block sup {
+  font-size: 0.7em;
+}
+
+.hero-body {
+  padding-top: 2.5rem;
+  padding-bottom: 1.5rem;
+}
+
+/* disabled placeholder buttons */
+.external-link[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.85;
+}
