@@ -17,7 +17,57 @@
   <link rel="stylesheet" href="./static/css/index.css">
   <link rel="icon" href="./static/images/favicon.svg">
 
+  <style>
+    /* Three-cell labels aligned to the internal panes of each result mp4 */
+    .pane-labels {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.35rem;
+    }
+    .pane-labels span {
+      text-align: center;
+    }
+    /* Divider between two side-by-side result videos in the same row */
+    @media (min-width: 769px) {
+      .column.is-6.has-divider {
+        border-right: 1px solid #dbdbdb;
+      }
+    }
+    /* Fix: Bulma flex .columns collapses to 1 column when placed inside <details>
+       (a Chrome/Firefox quirk with the flex-basis calc under a disclosure widget).
+       Force a CSS-grid 2-column layout inside details, preserving spacing. */
+    details .columns.is-multiline {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    details .columns.is-multiline > .column.is-6 {
+      width: auto;
+      padding: 0.75rem;
+    }
+  </style>
+
   <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', () => {
+      const clips = document.querySelectorAll('video.hover-play');
+      const play = v => {
+        if (v.readyState === 0) v.load();
+        const p = v.play();
+        if (p && typeof p.catch === 'function') p.catch(() => {});
+      };
+      const stop = v => { v.pause(); try { v.currentTime = 0; } catch (_) {} };
+      clips.forEach(v => {
+        v.addEventListener('mouseenter', () => play(v));
+        v.addEventListener('mouseleave', () => stop(v));
+        v.addEventListener('click', () => (v.paused ? play(v) : stop(v)));
+      });
+    });
+  </script>
 </head>
 <body>
 
@@ -28,10 +78,12 @@
       <div class="columns is-centered">
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title">EditVerse3D: High-Quality 3D Object Editing<br>with Region-Aware Learning</h1>
+          <h2 class="subtitle is-4 publication-venue" style="margin-top:0.75rem;margin-bottom:1rem;color:#3273dc;font-weight:600;">ECCV 2026</h2>
 
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              Youtan Yin<sup>1,2</sup><a href="https://orcid.org/0000-0002-7321-7927" target="_blank" rel="noopener"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" alt="ORCID" style="vertical-align:text-bottom;margin-left:2px;"></a>,</span>
+              <a href="https://cuteyyt.github.io/" target="_blank" rel="noopener">Youtan Yin</a><sup>1,2</sup><sup>&dagger;</sup>,
+            </span>
             <span class="author-block">Yanning Zhou<sup>2</sup>,</span>
             <span class="author-block">Jiacheng Wei<sup>1</sup>,</span>
             <span class="author-block">Xiaofeng Yang<sup>1</sup>,</span>
@@ -48,34 +100,57 @@
             <span class="author-block"><sup>2</sup>Tencent AIPD</span>
           </div>
 
-          <!-- ============ Link buttons (placeholders, non-navigating) ============ -->
+          <div class="is-size-6 publication-authors" style="margin-top:0.5rem;">
+            <span class="author-block"><sup>&dagger;</sup>Work done during an internship at Tencent AIPD.</span>
+          </div>
+
+          <!-- ============ Link buttons ============ -->
           <div class="column has-text-centered">
             <div class="publication-links">
-              <!-- Paper -->
+              <!-- Paper (self-hosted PDF) -->
               <span class="link-block">
-                <a href="#" class="external-link button is-normal is-rounded is-dark" onclick="return false;" aria-disabled="true">
+                <a href="./static/pdfs/paper.pdf" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener">
                   <span class="icon"><i class="fas fa-file-pdf"></i></span>
-                  <span>Paper</span>
+                  <span>Paper (12&nbsp;MB)</span>
                 </a>
               </span>
-              <!-- arXiv -->
+              <!-- arXiv (placeholder, non-navigating) -->
               <span class="link-block">
                 <a href="#" class="external-link button is-normal is-rounded is-dark" onclick="return false;" aria-disabled="true">
                   <span class="icon"><i class="ai ai-arxiv"></i></span>
                   <span>arXiv</span>
                 </a>
               </span>
-              <!-- Code -->
+              <!-- Code (coming soon) -->
               <span class="link-block">
                 <a href="#" class="external-link button is-normal is-rounded is-dark" onclick="return false;" aria-disabled="true">
                   <span class="icon"><i class="fab fa-github"></i></span>
-                  <span>Code</span>
+                  <span>Code (coming soon)</span>
+                </a>
+              </span>
+              <!-- Supp (self-hosted PDF) -->
+              <span class="link-block">
+                <a href="./static/pdfs/supp.pdf" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener">
+                  <span class="icon"><i class="fas fa-file-alt"></i></span>
+                  <span>Supp (84&nbsp;MB)</span>
                 </a>
               </span>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Teaser ============ -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/images/teaser.png" alt="EditVerse3D teaser: qualitative editing results across diverse 3D objects" loading="eager" style="width:100%;height:auto;">
+      <p class="has-text-justified" style="margin-top:1rem;">
+        <b>Editing results of our method.</b> Given a 3D object, a user-specified coarse 3D bounding box indicating the target editing region, and an image prompt defining the editing goal, our approach generates high-quality, coherent edits. Our method does not require fully edited 2D views, precise 3D masks, or redundant pipelines.
+      </p>
     </div>
   </div>
 </section>
@@ -108,12 +183,262 @@
     <div class="columns is-centered">
       <div class="column is-full has-text-centered">
         <h2 class="title is-3">Method Overview</h2>
-        <img src="./static/images/overview.png" alt="Method overview of EditVerse3D" style="width:100%;height:auto;">
+        <img src="./static/images/overview.png" alt="Method overview of EditVerse3D" loading="lazy" style="width:100%;height:auto;">
         <p class="has-text-justified" style="margin-top:1rem;">
-          Given a masked 3D object as input, we first extract its structure and texture latents using the TRELLIS encoder. The input latents are concatenated with a binary mask and random noise along the feature channel dimension, then fed into the flow-matching model, which takes the editing target as a condition. The flow model generates edited latents, which decode into the final result.
+          <b>An overview of our method.</b> Given a masked 3D object as input, we first extract its structure and texture latents using the TRELLIS encoder. The input latents are concatenated with a binary mask and random noise along the feature channel dimension, then fed into the flow-matching model, which takes the editing target as a condition. The flow model generates edited latents, which decode into the final result.
         </p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ============ Results ============ -->
+<section class="section" id="results">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Results</h2>
+
+    <!-- Featured — Replace edits -->
+    <h3 class="title is-5" style="margin-top:2rem;">Featured: Replace edits</h3>
+    <div class="columns is-multiline">
+      <div class="column is-6 has-divider">
+        <div class="pane-labels"><span>Image prompt</span><span>Masked unedited 3D</span><span>Edited 3D</span></div>
+              <video src="./static/videos/FishCake_0.mp4" poster="./static/posters/FishCake_0.jpg" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;"></video>
+      </div>
+      <div class="column is-6">
+        <div class="pane-labels"><span>Image prompt</span><span>Masked unedited 3D</span><span>Edited 3D</span></div>
+              <video src="./static/videos/XiaoHead3_0.mp4" poster="./static/posters/XiaoHead3_0.jpg" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;"></video>
+      </div>
+      <div class="column is-6 has-divider">
+        <video src="./static/videos/PotLeg_0.mp4" poster="./static/posters/PotLeg_0.jpg" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;"></video>
+      </div>
+      <div class="column is-6">
+        <video src="./static/videos/HorseTail_0.mp4" poster="./static/posters/HorseTail_0.jpg" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;"></video>
+      </div>
+    </div>
+
+    <!-- Featured — Add edits -->
+    <h3 class="title is-5" style="margin-top:2rem;">Featured: Add edits</h3>
+    <div class="columns is-multiline">
+      <div class="column is-6 has-divider">
+        <div class="pane-labels"><span>Image prompt</span><span>Masked unedited 3D</span><span>Edited 3D</span></div>
+              <video src="./static/videos/0c3ca2b32545416f8f1e6f0e87def1a6_0.mp4" poster="./static/posters/0c3ca2b32545416f8f1e6f0e87def1a6_0.jpg" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;"></video>
+      </div>
+      <div class="column is-6">
+        <div class="pane-labels"><span>Image prompt</span><span>Masked unedited 3D</span><span>Edited 3D</span></div>
+              <video src="./static/videos/00200996b8f34f55a2dd2f44d316d107_3.mp4" poster="./static/posters/00200996b8f34f55a2dd2f44d316d107_3.jpg" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;"></video>
+      </div>
+      <div class="column is-6 has-divider">
+        <video src="./static/videos/674e65a1f526461781e59ec49e7200bc_3.mp4" poster="./static/posters/674e65a1f526461781e59ec49e7200bc_3.jpg" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;"></video>
+      </div>
+      <div class="column is-6">
+        <video src="./static/videos/bd0b6595da8a420b86cd78ad905e1a13_1.mp4" poster="./static/posters/bd0b6595da8a420b86cd78ad905e1a13_1.jpg" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;"></video>
+      </div>
+    </div>
+
+    <!-- Gallery (3 groups, collapsed) -->
+    <h3 class="title is-5" style="margin-top:2.5rem;">More results (52 clips)</h3>
+    <details style="margin-top:1.25rem;">
+      <summary style="cursor:pointer;font-weight:600;font-size:1.1rem;">More results — Part 1 (10 clips)</summary>
+      <p class="is-size-7" style="margin-top:0.5rem;margin-bottom:1rem;color:#888;">
+        Hover a clip to play; move away to pause. On touch devices, tap to toggle.
+      </p>
+      <div class="columns is-multiline" style="margin-top:1rem;">
+        <div class="column is-6 has-divider">
+          <div class="pane-labels"><span>Image prompt</span><span>Masked unedited 3D</span><span>Edited 3D</span></div>
+                <video class="hover-play" src="./static/videos/00790c705e4c4a1fbc0af9bf5c9e9525_11.mp4" poster="./static/posters/00790c705e4c4a1fbc0af9bf5c9e9525_11.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <div class="pane-labels"><span>Image prompt</span><span>Masked unedited 3D</span><span>Edited 3D</span></div>
+                <video class="hover-play" src="./static/videos/01b8043112e74366a21256d5e64398fb_1.mp4" poster="./static/posters/01b8043112e74366a21256d5e64398fb_1.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6 has-divider">
+          <video class="hover-play" src="./static/videos/02e777bdc5114b148963ed3def6ad471_0.mp4" poster="./static/posters/02e777bdc5114b148963ed3def6ad471_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <video class="hover-play" src="./static/videos/053b8a4984e340ad94f3b563594ff09d_1.mp4" poster="./static/posters/053b8a4984e340ad94f3b563594ff09d_1.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6 has-divider">
+          <video class="hover-play" src="./static/videos/0d829115bb4d472da5d05cdf529b6694_1.mp4" poster="./static/posters/0d829115bb4d472da5d05cdf529b6694_1.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <video class="hover-play" src="./static/videos/11ad3b320ee74185ae4ba26ddc910b52_2.mp4" poster="./static/posters/11ad3b320ee74185ae4ba26ddc910b52_2.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6 has-divider">
+          <video class="hover-play" src="./static/videos/1b3e8b99913442308aa989e3f87680b3_4.mp4" poster="./static/posters/1b3e8b99913442308aa989e3f87680b3_4.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <video class="hover-play" src="./static/videos/1d97ec6885464f6a9ce7a4cc955bff41_3.mp4" poster="./static/posters/1d97ec6885464f6a9ce7a4cc955bff41_3.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6 has-divider">
+          <video class="hover-play" src="./static/videos/25a8ae3794594941bb2f7091d608b336_7.mp4" poster="./static/posters/25a8ae3794594941bb2f7091d608b336_7.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <video class="hover-play" src="./static/videos/26b87e15e15b449fae1b57bdd6d477ef_9.mp4" poster="./static/posters/26b87e15e15b449fae1b57bdd6d477ef_9.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+      </div>
+    </details>
+    <details style="margin-top:1.25rem;">
+      <summary style="cursor:pointer;font-weight:600;font-size:1.1rem;">More results — Part 2 (20 clips)</summary>
+      <p class="is-size-7" style="margin-top:0.5rem;margin-bottom:1rem;color:#888;">
+        Hover a clip to play; move away to pause. On touch devices, tap to toggle.
+      </p>
+      <div class="columns is-multiline" style="margin-top:1rem;">
+        <div class="column is-6 has-divider">
+          <div class="pane-labels"><span>Image prompt</span><span>Masked unedited 3D</span><span>Edited 3D</span></div>
+                <video class="hover-play" src="./static/videos/29e480b958df44a2ac3a4ed12b7ee1a0_4.mp4" poster="./static/posters/29e480b958df44a2ac3a4ed12b7ee1a0_4.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <div class="pane-labels"><span>Image prompt</span><span>Masked unedited 3D</span><span>Edited 3D</span></div>
+                <video class="hover-play" src="./static/videos/2dd2980caf87450d9ef7e42adb43f2ca_5.mp4" poster="./static/posters/2dd2980caf87450d9ef7e42adb43f2ca_5.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6 has-divider">
+          <video class="hover-play" src="./static/videos/2ef369ebae66464f9d2479057a6bf6d2_1.mp4" poster="./static/posters/2ef369ebae66464f9d2479057a6bf6d2_1.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <video class="hover-play" src="./static/videos/358eb80d4d074dee8cd65b4b0fa187f7_7.mp4" poster="./static/posters/358eb80d4d074dee8cd65b4b0fa187f7_7.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6 has-divider">
+          <video class="hover-play" src="./static/videos/36793e98c89f41c186617d4581598ec4_3.mp4" poster="./static/posters/36793e98c89f41c186617d4581598ec4_3.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <video class="hover-play" src="./static/videos/395af3909e9d4152b713769ae9182ef0_4.mp4" poster="./static/posters/395af3909e9d4152b713769ae9182ef0_4.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6 has-divider">
+          <video class="hover-play" src="./static/videos/3eac61535005406885ad708b4eb375e9_8.mp4" poster="./static/posters/3eac61535005406885ad708b4eb375e9_8.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <video class="hover-play" src="./static/videos/423121778c4b4e849a029b8281c68bda_2.mp4" poster="./static/posters/423121778c4b4e849a029b8281c68bda_2.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6 has-divider">
+          <video class="hover-play" src="./static/videos/439ee7ebf11d45739dbef21b91669c1b_6.mp4" poster="./static/posters/439ee7ebf11d45739dbef21b91669c1b_6.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <video class="hover-play" src="./static/videos/4d350186abc74076ae0c7d91d04a78fa_0.mp4" poster="./static/posters/4d350186abc74076ae0c7d91d04a78fa_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6 has-divider">
+          <video class="hover-play" src="./static/videos/5c3ec179b3fb4fb1b006ff935d5dfb77_6.mp4" poster="./static/posters/5c3ec179b3fb4fb1b006ff935d5dfb77_6.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <video class="hover-play" src="./static/videos/5c3ec179b3fb4fb1b006ff935d5dfb77_8.mp4" poster="./static/posters/5c3ec179b3fb4fb1b006ff935d5dfb77_8.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6 has-divider">
+          <video class="hover-play" src="./static/videos/5fad3a288517425e96b5cc4a86ebfb46_3.mp4" poster="./static/posters/5fad3a288517425e96b5cc4a86ebfb46_3.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <video class="hover-play" src="./static/videos/63536adbd96147a8869ee36d7f6cfd92_0.mp4" poster="./static/posters/63536adbd96147a8869ee36d7f6cfd92_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6 has-divider">
+          <video class="hover-play" src="./static/videos/63695230beb44ae68650bdd4d914917f_9.mp4" poster="./static/posters/63695230beb44ae68650bdd4d914917f_9.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <video class="hover-play" src="./static/videos/670f26a742f748b6b7542e7730f9803a_4.mp4" poster="./static/posters/670f26a742f748b6b7542e7730f9803a_4.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6 has-divider">
+          <video class="hover-play" src="./static/videos/687e47474eb84ef285b1df164e0788fb_7.mp4" poster="./static/posters/687e47474eb84ef285b1df164e0788fb_7.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <video class="hover-play" src="./static/videos/6ea331125ac747c1b8640dc80d90d4cd_2.mp4" poster="./static/posters/6ea331125ac747c1b8640dc80d90d4cd_2.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6 has-divider">
+          <video class="hover-play" src="./static/videos/78c7c67eae00428b9bc50c288776c75b_5.mp4" poster="./static/posters/78c7c67eae00428b9bc50c288776c75b_5.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <video class="hover-play" src="./static/videos/7fa9a73e4fc4477d82c8d3dadeb72c65_0.mp4" poster="./static/posters/7fa9a73e4fc4477d82c8d3dadeb72c65_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+      </div>
+    </details>
+    <details style="margin-top:1.25rem;">
+      <summary style="cursor:pointer;font-weight:600;font-size:1.1rem;">More results — Part 3 (22 clips)</summary>
+      <p class="is-size-7" style="margin-top:0.5rem;margin-bottom:1rem;color:#888;">
+        Hover a clip to play; move away to pause. On touch devices, tap to toggle.
+      </p>
+      <div class="columns is-multiline" style="margin-top:1rem;">
+        <div class="column is-6 has-divider">
+          <div class="pane-labels"><span>Image prompt</span><span>Masked unedited 3D</span><span>Edited 3D</span></div>
+                <video class="hover-play" src="./static/videos/8208ec4c0f204a0f96f41fb4154264ce_0.mp4" poster="./static/posters/8208ec4c0f204a0f96f41fb4154264ce_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <div class="pane-labels"><span>Image prompt</span><span>Masked unedited 3D</span><span>Edited 3D</span></div>
+                <video class="hover-play" src="./static/videos/854b37afca0c44c9a0302b879a95bfca_8.mp4" poster="./static/posters/854b37afca0c44c9a0302b879a95bfca_8.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6 has-divider">
+          <video class="hover-play" src="./static/videos/8b8e14ddf5104c579a6dd100ff8c0bdb_10.mp4" poster="./static/posters/8b8e14ddf5104c579a6dd100ff8c0bdb_10.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <video class="hover-play" src="./static/videos/8ca1867c11bb48a39eb2aca203beb70b_4.mp4" poster="./static/posters/8ca1867c11bb48a39eb2aca203beb70b_4.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6 has-divider">
+          <video class="hover-play" src="./static/videos/8eda5c8b64f64096b3995a08f6095644_10.mp4" poster="./static/posters/8eda5c8b64f64096b3995a08f6095644_10.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <video class="hover-play" src="./static/videos/8eda5c8b64f64096b3995a08f6095644_11.mp4" poster="./static/posters/8eda5c8b64f64096b3995a08f6095644_11.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6 has-divider">
+          <video class="hover-play" src="./static/videos/95364de582474cf3ab38ca4bae946652_1.mp4" poster="./static/posters/95364de582474cf3ab38ca4bae946652_1.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <video class="hover-play" src="./static/videos/9d6b66aba431493097f289a6e42f3614_0.mp4" poster="./static/posters/9d6b66aba431493097f289a6e42f3614_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6 has-divider">
+          <video class="hover-play" src="./static/videos/9f43d0ac857541e8a3a92e20ba284c44_2.mp4" poster="./static/posters/9f43d0ac857541e8a3a92e20ba284c44_2.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <video class="hover-play" src="./static/videos/FishThorn_0.mp4" poster="./static/posters/FishThorn_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6 has-divider">
+          <video class="hover-play" src="./static/videos/HorseHat_0.mp4" poster="./static/posters/HorseHat_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <video class="hover-play" src="./static/videos/NingguangHand_0.mp4" poster="./static/posters/NingguangHand_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6 has-divider">
+          <video class="hover-play" src="./static/videos/NingguangLeg_0.mp4" poster="./static/posters/NingguangLeg_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <video class="hover-play" src="./static/videos/PotPot1_0.mp4" poster="./static/posters/PotPot1_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6 has-divider">
+          <video class="hover-play" src="./static/videos/PotPot2_0.mp4" poster="./static/posters/PotPot2_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <video class="hover-play" src="./static/videos/PotPot3_0.mp4" poster="./static/posters/PotPot3_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6 has-divider">
+          <video class="hover-play" src="./static/videos/a95c590e89444458b53a15190c7560c3_2.mp4" poster="./static/posters/a95c590e89444458b53a15190c7560c3_2.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <video class="hover-play" src="./static/videos/b1d515a6cbe847ea91e2c5680b8fc67f_6.mp4" poster="./static/posters/b1d515a6cbe847ea91e2c5680b8fc67f_6.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6 has-divider">
+          <video class="hover-play" src="./static/videos/b34bc2a0607846aaae8636a9bea7e43d_3.mp4" poster="./static/posters/b34bc2a0607846aaae8636a9bea7e43d_3.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <video class="hover-play" src="./static/videos/b8915325eadc4f86af543daaf10702de_3.mp4" poster="./static/posters/b8915325eadc4f86af543daaf10702de_3.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6 has-divider">
+          <video class="hover-play" src="./static/videos/c209c30d7a1843918ea5df1c61d594a5_4.mp4" poster="./static/posters/c209c30d7a1843918ea5df1c61d594a5_4.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+        <div class="column is-6">
+          <video class="hover-play" src="./static/videos/da7af66ce5df4629802e97dc03d186f5_0.mp4" poster="./static/posters/da7af66ce5df4629802e97dc03d186f5_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+        </div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ BibTeX ============ -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">BibTeX</h2>
+<pre><code>@article{yin2026editverse3d,
+    author  = {Yin, Youtan and Zhou, Yanning and Wei, Jiacheng and Yang, Xiaofeng
+               and Zhang, Jun and Bai, Jiayang and Ye, Jingwen and Zhang, Weidong
+               and Lin, Guosheng},
+    title   = {EditVerse3D: High-Quality 3D Object Editing with Region-Aware Learning},
+    journal = {arXiv preprint},
+    year    = {2026},
+}
+</code></pre>
   </div>
 </section>
 
