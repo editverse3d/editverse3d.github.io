@@ -6,6 +6,10 @@ body {
   font-family: 'Google Sans', sans-serif;
 }
 
+.publication-title.title {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
 .publication-authors {
   font-family: 'Google Sans', sans-serif;
   margin-top: 1rem;
@@ -16,11 +20,17 @@ body {
 }
 
 .publication-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
   margin-top: 1.5rem;
 }
 
-.publication-links .link-block {
-  margin: 0 0.25rem;
+.publication-links .icon svg {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
 }
 
 .author-block sup {
@@ -32,8 +42,67 @@ body {
   padding-bottom: 1.5rem;
 }
 
-/* disabled placeholder buttons */
-.external-link[aria-disabled="true"] {
+.external-link.button[disabled] {
   cursor: not-allowed;
   opacity: 0.85;
+}
+
+.pane-labels {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.35rem;
+  text-align: center;
+}
+
+#results video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+details .columns.is-multiline {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  margin-left: 0;
+  margin-right: 0;
+}
+
+details .columns.is-multiline > .column.is-6 {
+  width: auto;
+  min-width: 0;
+  padding: 0.75rem;
+}
+
+.clip-toggle {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.clip-toggle:focus-visible {
+  outline: 2px solid #3273dc;
+  outline-offset: 4px;
+}
+
+.clip-instructions {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+@media (min-width: 769px) {
+  .column.is-6.has-divider {
+    border-right: 1px solid #dbdbdb;
+  }
+
+  details .columns.is-multiline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }

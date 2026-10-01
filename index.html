@@ -8,66 +8,13 @@
   <meta name="keywords" content="3D Editing, Region-Aware Learning, 3D Editing Dataset, TRELLIS, Diffusion">
   <title>EditVerse3D: High-Quality 3D Object Editing with Region-Aware Learning</title>
 
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans"
         rel="stylesheet">
   <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
   <link rel="icon" href="./static/images/favicon.svg">
 
-  <style>
-    /* Three-cell labels aligned to the internal panes of each result mp4 */
-    .pane-labels {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 0.35rem;
-    }
-    .pane-labels span {
-      text-align: center;
-    }
-    /* Divider between two side-by-side result videos in the same row */
-    @media (min-width: 769px) {
-      .column.is-6.has-divider {
-        border-right: 1px solid #dbdbdb;
-      }
-    }
-    /* Fix: Bulma flex .columns collapses to 1 column when placed inside <details>
-       (a Chrome/Firefox quirk with the flex-basis calc under a disclosure widget).
-       Force a CSS-grid 2-column layout inside details, preserving spacing. */
-    details .columns.is-multiline {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      margin-left: 0;
-      margin-right: 0;
-    }
-    details .columns.is-multiline > .column.is-6 {
-      width: auto;
-      padding: 0.75rem;
-    }
-  </style>
-
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script defer>
-    document.addEventListener('DOMContentLoaded', () => {
-      const clips = document.querySelectorAll('video.hover-play');
-      const play = v => {
-        if (v.readyState === 0) v.load();
-        const p = v.play();
-        if (p && typeof p.catch === 'function') p.catch(() => {});
-      };
-      const stop = v => { v.pause(); try { v.currentTime = 0; } catch (_) {} };
-      clips.forEach(v => {
-        v.addEventListener('mouseenter', () => play(v));
-        v.addEventListener('mouseleave', () => stop(v));
-        v.addEventListener('click', () => (v.paused ? play(v) : stop(v)));
-      });
-    });
-  </script>
+  <script defer src="./static/js/index.js"></script>
 </head>
 <body>
 
@@ -92,7 +39,7 @@
             <span class="author-block">Jiayang Bai<sup>2</sup>,</span>
             <span class="author-block">Jingwen Ye<sup>2</sup>,</span>
             <span class="author-block">Weidong Zhang<sup>2</sup>,</span>
-            <span class="author-block">Guosheng Lin<sup>1</sup></span>
+            <span class="author-block">Guosheng Lin<sup>1,*</sup></span>
           </div>
 
           <div class="is-size-5 publication-authors">
@@ -101,39 +48,50 @@
           </div>
 
           <div class="is-size-6 publication-authors" style="margin-top:0.5rem;">
+            <span class="author-block"><sup>*</sup>Corresponding author: Guosheng Lin.</span><br>
             <span class="author-block"><sup>&dagger;</sup>Work done during an internship at Tencent AIPD.</span>
           </div>
 
           <!-- ============ Link buttons ============ -->
+          <!-- GitHub and document icons: Font Awesome Free 5.15.1, CC BY 4.0.
+               https://fontawesome.com/license/free -->
+          <!-- arXiv icon: Academicons, James Walsh and Katja Bercic, SIL OFL 1.1.
+               License: static/licenses/academicons.txt -->
           <div class="column has-text-centered">
             <div class="publication-links">
-              <!-- Display rule (2026-07-10): arXiv, Code, Paper, Supp -->
+              <!-- Button order: Springer, arXiv, Code, Paper, Supp -->
+              <!-- Published proceedings -->
+              <span class="link-block">
+                <a href="https://doi.org/10.1007/978-3-032-36839-3_27" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener">
+                  <span>Springer</span>
+                </a>
+              </span>
               <!-- arXiv -->
               <span class="link-block">
                 <a href="https://arxiv.org/abs/2607.07187" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener">
-                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span class="icon"><svg viewBox="0 0 448 508" aria-hidden="true" focusable="false"><path transform="translate(0 444) scale(1 -1)" d="M62 440Q66 440 70.5 437.5Q75 435 77 432L79 430L219 296L320 388Q328 396 338 396Q340 396 341 396Q357 392 365 378Q370 366 358 350H357L270 247L295 222Q308 211 308.0 193.5Q308 176 295 164L272 143L401 -12Q411 -22 407 -36Q403 -50 389 -55Q385 -56 382 -56Q371 -56 363 -48L217 91L122 3Q116 -5 106 -5Q91 -5 85 9Q80 23 92 36L172 134L143 161Q129 176 129.5 195.0Q130 214 145 229L170 252Q59 386 48 402Q37 417 41 427Q47 440 62 440ZM338 389Q330 388 325 382L224 291L265 252L352 354Q361 367 358 375Q352 385 341 389Q339 389 338 389ZM175 247 150 224Q137 211 136.5 195.5Q136 180 148 167L368 -43Q374 -48 382 -49Q384 -49 387 -48Q397 -44 400 -34Q403 -26 395 -17Z"></path></svg></span>
                   <span>arXiv</span>
                 </a>
               </span>
               <!-- Code (coming soon) -->
               <span class="link-block">
-                <a href="#" class="external-link button is-normal is-rounded is-dark" onclick="return false;" aria-disabled="true">
-                  <span class="icon"><i class="fab fa-github"></i></span>
+                <button type="button" class="external-link button is-normal is-rounded is-dark" disabled>
+                  <span class="icon"><svg viewBox="0 0 496 512" aria-hidden="true" focusable="false"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></span>
                   <span>Code (coming soon)</span>
+                </button>
+              </span>
+              <!-- Paper (Google Drive) -->
+              <span class="link-block">
+                <a href="https://drive.google.com/file/d/1Yp0Q1x82WITboAt1Qv_nuq1QiLw2Zj2k/view?usp=sharing" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener">
+                  <span class="icon"><svg viewBox="0 0 384 512" aria-hidden="true" focusable="false"><path d="M181.9 256.1c-5-16-4.9-46.9-2-46.9 8.4 0 7.6 36.9 2 46.9zm-1.7 47.2c-7.7 20.2-17.3 43.3-28.4 62.7 18.3-7 39-17.2 62.9-21.9-12.7-9.6-24.9-23.4-34.5-40.8zM86.1 428.1c0 .8 13.2-5.4 34.9-40.2-6.7 6.3-29.1 24.5-34.9 40.2zM248 160h136v328c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V24C0 10.7 10.7 0 24 0h200v136c0 13.2 10.8 24 24 24zm-8 171.8c-20-12.2-33.3-29-42.7-53.8 4.5-18.5 11.6-46.6 6.2-64.2-4.7-29.4-42.4-26.5-47.8-6.8-5 18.3-.4 44.1 8.1 77-11.6 27.6-28.7 64.6-40.8 85.8-.1 0-.1.1-.2.1-27.1 13.9-73.6 44.5-54.5 68 5.6 6.9 16 10 21.5 10 17.9 0 35.7-18 61.1-61.8 25.8-8.5 54.1-19.1 79-23.2 21.7 11.8 47.1 19.5 64 19.5 29.2 0 31.2-32 19.7-43.4-13.9-13.6-54.3-9.7-73.6-7.2zM377 105L279 7c-4.5-4.5-10.6-7-17-7h-6v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zm-74.1 255.3c4.1-2.7-2.5-11.9-42.8-9 37.1 15.8 42.8 9 42.8 9z"></path></svg></span>
+                  <span>Paper</span>
                 </a>
               </span>
-              <!-- Paper (self-hosted PDF) -->
+              <!-- Supp (Google Drive) -->
               <span class="link-block">
-                <a href="./static/pdfs/paper.pdf" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener">
-                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
-                  <span>Paper (12&nbsp;MB)</span>
-                </a>
-              </span>
-              <!-- Supp (self-hosted PDF) -->
-              <span class="link-block">
-                <a href="./static/pdfs/supp.pdf" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener">
-                  <span class="icon"><i class="fas fa-file-alt"></i></span>
-                  <span>Supp (84&nbsp;MB)</span>
+                <a href="https://drive.google.com/file/d/15ILZ6_6OC5Qc4rr_eOHfyM1XvOA-WQg-/view?usp=sharing" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener">
+                  <span class="icon"><svg viewBox="0 0 384 512" aria-hidden="true" focusable="false"><path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm64 236c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm0-64c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm0-72v8c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12zm96-114.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"></path></svg></span>
+                  <span>Supp</span>
                 </a>
               </span>
             </div>
@@ -203,17 +161,17 @@
     <div class="columns is-multiline">
       <div class="column is-6 has-divider">
         <div class="pane-labels"><span>Image prompt</span><span>Masked unedited 3D</span><span>Edited 3D</span></div>
-              <video src="./static/videos/FishCake_0.mp4" poster="./static/posters/FishCake_0.jpg" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;"></video>
+        <video class="featured-video" aria-label="Featured replacement result 1" data-src="./static/videos/FishCake_0.mp4" poster="./static/posters/FishCake_0.jpg" width="1280" height="427" controls muted loop playsinline preload="none"></video>
       </div>
       <div class="column is-6">
         <div class="pane-labels"><span>Image prompt</span><span>Masked unedited 3D</span><span>Edited 3D</span></div>
-              <video src="./static/videos/XiaoHead3_0.mp4" poster="./static/posters/XiaoHead3_0.jpg" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;"></video>
+        <video class="featured-video" aria-label="Featured replacement result 2" data-src="./static/videos/XiaoHead3_0.mp4" poster="./static/posters/XiaoHead3_0.jpg" width="1280" height="427" controls muted loop playsinline preload="none"></video>
       </div>
       <div class="column is-6 has-divider">
-        <video src="./static/videos/PotLeg_0.mp4" poster="./static/posters/PotLeg_0.jpg" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;"></video>
+        <video class="featured-video" aria-label="Featured replacement result 3" data-src="./static/videos/PotLeg_0.mp4" poster="./static/posters/PotLeg_0.jpg" width="1280" height="427" controls muted loop playsinline preload="none"></video>
       </div>
       <div class="column is-6">
-        <video src="./static/videos/HorseTail_0.mp4" poster="./static/posters/HorseTail_0.jpg" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;"></video>
+        <video class="featured-video" aria-label="Featured replacement result 4" data-src="./static/videos/HorseTail_0.mp4" poster="./static/posters/HorseTail_0.jpg" width="1280" height="427" controls muted loop playsinline preload="none"></video>
       </div>
     </div>
 
@@ -222,17 +180,17 @@
     <div class="columns is-multiline">
       <div class="column is-6 has-divider">
         <div class="pane-labels"><span>Image prompt</span><span>Masked unedited 3D</span><span>Edited 3D</span></div>
-              <video src="./static/videos/0c3ca2b32545416f8f1e6f0e87def1a6_0.mp4" poster="./static/posters/0c3ca2b32545416f8f1e6f0e87def1a6_0.jpg" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;"></video>
+        <video class="featured-video" aria-label="Featured addition result 1" data-src="./static/videos/0c3ca2b32545416f8f1e6f0e87def1a6_0.mp4" poster="./static/posters/0c3ca2b32545416f8f1e6f0e87def1a6_0.jpg" width="1280" height="427" controls muted loop playsinline preload="none"></video>
       </div>
       <div class="column is-6">
         <div class="pane-labels"><span>Image prompt</span><span>Masked unedited 3D</span><span>Edited 3D</span></div>
-              <video src="./static/videos/00200996b8f34f55a2dd2f44d316d107_3.mp4" poster="./static/posters/00200996b8f34f55a2dd2f44d316d107_3.jpg" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;"></video>
+        <video class="featured-video" aria-label="Featured addition result 2" data-src="./static/videos/00200996b8f34f55a2dd2f44d316d107_3.mp4" poster="./static/posters/00200996b8f34f55a2dd2f44d316d107_3.jpg" width="1280" height="427" controls muted loop playsinline preload="none"></video>
       </div>
       <div class="column is-6 has-divider">
-        <video src="./static/videos/674e65a1f526461781e59ec49e7200bc_3.mp4" poster="./static/posters/674e65a1f526461781e59ec49e7200bc_3.jpg" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;"></video>
+        <video class="featured-video" aria-label="Featured addition result 3" data-src="./static/videos/674e65a1f526461781e59ec49e7200bc_3.mp4" poster="./static/posters/674e65a1f526461781e59ec49e7200bc_3.jpg" width="1280" height="427" controls muted loop playsinline preload="none"></video>
       </div>
       <div class="column is-6">
-        <video src="./static/videos/bd0b6595da8a420b86cd78ad905e1a13_1.mp4" poster="./static/posters/bd0b6595da8a420b86cd78ad905e1a13_1.jpg" autoplay muted loop playsinline preload="metadata" style="width:100%;height:auto;display:block;"></video>
+        <video class="featured-video" aria-label="Featured addition result 4" data-src="./static/videos/bd0b6595da8a420b86cd78ad905e1a13_1.mp4" poster="./static/posters/bd0b6595da8a420b86cd78ad905e1a13_1.jpg" width="1280" height="427" controls muted loop playsinline preload="none"></video>
       </div>
     </div>
 
@@ -240,187 +198,187 @@
     <h3 class="title is-5" style="margin-top:2.5rem;">More results (52 clips)</h3>
     <details style="margin-top:1.25rem;">
       <summary style="cursor:pointer;font-weight:600;font-size:1.1rem;">More results — Part 1 (10 clips)</summary>
-      <p class="is-size-7" style="margin-top:0.5rem;margin-bottom:1rem;color:#888;">
-        Hover a clip to play; move away to pause. On touch devices, tap to toggle.
+      <p class="is-size-7 clip-instructions">
+        Hover to play; move away to pause. Click, tap, or press Enter/Space to toggle.
       </p>
       <div class="columns is-multiline" style="margin-top:1rem;">
         <div class="column is-6 has-divider">
           <div class="pane-labels"><span>Image prompt</span><span>Masked unedited 3D</span><span>Edited 3D</span></div>
-                <video class="hover-play" src="./static/videos/00790c705e4c4a1fbc0af9bf5c9e9525_11.mp4" poster="./static/posters/00790c705e4c4a1fbc0af9bf5c9e9525_11.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+                <button type="button" class="clip-toggle" aria-label="Play or pause editing result 1" aria-pressed="false"><video class="hover-play" src="./static/videos/00790c705e4c4a1fbc0af9bf5c9e9525_11.mp4" poster="./static/posters/00790c705e4c4a1fbc0af9bf5c9e9525_11.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
           <div class="pane-labels"><span>Image prompt</span><span>Masked unedited 3D</span><span>Edited 3D</span></div>
-                <video class="hover-play" src="./static/videos/01b8043112e74366a21256d5e64398fb_1.mp4" poster="./static/posters/01b8043112e74366a21256d5e64398fb_1.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+                <button type="button" class="clip-toggle" aria-label="Play or pause editing result 2" aria-pressed="false"><video class="hover-play" src="./static/videos/01b8043112e74366a21256d5e64398fb_1.mp4" poster="./static/posters/01b8043112e74366a21256d5e64398fb_1.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6 has-divider">
-          <video class="hover-play" src="./static/videos/02e777bdc5114b148963ed3def6ad471_0.mp4" poster="./static/posters/02e777bdc5114b148963ed3def6ad471_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 3" aria-pressed="false"><video class="hover-play" src="./static/videos/02e777bdc5114b148963ed3def6ad471_0.mp4" poster="./static/posters/02e777bdc5114b148963ed3def6ad471_0.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
-          <video class="hover-play" src="./static/videos/053b8a4984e340ad94f3b563594ff09d_1.mp4" poster="./static/posters/053b8a4984e340ad94f3b563594ff09d_1.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 4" aria-pressed="false"><video class="hover-play" src="./static/videos/053b8a4984e340ad94f3b563594ff09d_1.mp4" poster="./static/posters/053b8a4984e340ad94f3b563594ff09d_1.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6 has-divider">
-          <video class="hover-play" src="./static/videos/0d829115bb4d472da5d05cdf529b6694_1.mp4" poster="./static/posters/0d829115bb4d472da5d05cdf529b6694_1.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 5" aria-pressed="false"><video class="hover-play" src="./static/videos/0d829115bb4d472da5d05cdf529b6694_1.mp4" poster="./static/posters/0d829115bb4d472da5d05cdf529b6694_1.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
-          <video class="hover-play" src="./static/videos/11ad3b320ee74185ae4ba26ddc910b52_2.mp4" poster="./static/posters/11ad3b320ee74185ae4ba26ddc910b52_2.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 6" aria-pressed="false"><video class="hover-play" src="./static/videos/11ad3b320ee74185ae4ba26ddc910b52_2.mp4" poster="./static/posters/11ad3b320ee74185ae4ba26ddc910b52_2.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6 has-divider">
-          <video class="hover-play" src="./static/videos/1b3e8b99913442308aa989e3f87680b3_4.mp4" poster="./static/posters/1b3e8b99913442308aa989e3f87680b3_4.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 7" aria-pressed="false"><video class="hover-play" src="./static/videos/1b3e8b99913442308aa989e3f87680b3_4.mp4" poster="./static/posters/1b3e8b99913442308aa989e3f87680b3_4.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
-          <video class="hover-play" src="./static/videos/1d97ec6885464f6a9ce7a4cc955bff41_3.mp4" poster="./static/posters/1d97ec6885464f6a9ce7a4cc955bff41_3.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 8" aria-pressed="false"><video class="hover-play" src="./static/videos/1d97ec6885464f6a9ce7a4cc955bff41_3.mp4" poster="./static/posters/1d97ec6885464f6a9ce7a4cc955bff41_3.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6 has-divider">
-          <video class="hover-play" src="./static/videos/25a8ae3794594941bb2f7091d608b336_7.mp4" poster="./static/posters/25a8ae3794594941bb2f7091d608b336_7.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 9" aria-pressed="false"><video class="hover-play" src="./static/videos/25a8ae3794594941bb2f7091d608b336_7.mp4" poster="./static/posters/25a8ae3794594941bb2f7091d608b336_7.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
-          <video class="hover-play" src="./static/videos/26b87e15e15b449fae1b57bdd6d477ef_9.mp4" poster="./static/posters/26b87e15e15b449fae1b57bdd6d477ef_9.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 10" aria-pressed="false"><video class="hover-play" src="./static/videos/26b87e15e15b449fae1b57bdd6d477ef_9.mp4" poster="./static/posters/26b87e15e15b449fae1b57bdd6d477ef_9.jpg" muted loop playsinline preload="none"></video></button>
         </div>
       </div>
     </details>
     <details style="margin-top:1.25rem;">
       <summary style="cursor:pointer;font-weight:600;font-size:1.1rem;">More results — Part 2 (20 clips)</summary>
-      <p class="is-size-7" style="margin-top:0.5rem;margin-bottom:1rem;color:#888;">
-        Hover a clip to play; move away to pause. On touch devices, tap to toggle.
+      <p class="is-size-7 clip-instructions">
+        Hover to play; move away to pause. Click, tap, or press Enter/Space to toggle.
       </p>
       <div class="columns is-multiline" style="margin-top:1rem;">
         <div class="column is-6 has-divider">
           <div class="pane-labels"><span>Image prompt</span><span>Masked unedited 3D</span><span>Edited 3D</span></div>
-                <video class="hover-play" src="./static/videos/29e480b958df44a2ac3a4ed12b7ee1a0_4.mp4" poster="./static/posters/29e480b958df44a2ac3a4ed12b7ee1a0_4.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+                <button type="button" class="clip-toggle" aria-label="Play or pause editing result 11" aria-pressed="false"><video class="hover-play" src="./static/videos/29e480b958df44a2ac3a4ed12b7ee1a0_4.mp4" poster="./static/posters/29e480b958df44a2ac3a4ed12b7ee1a0_4.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
           <div class="pane-labels"><span>Image prompt</span><span>Masked unedited 3D</span><span>Edited 3D</span></div>
-                <video class="hover-play" src="./static/videos/2dd2980caf87450d9ef7e42adb43f2ca_5.mp4" poster="./static/posters/2dd2980caf87450d9ef7e42adb43f2ca_5.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+                <button type="button" class="clip-toggle" aria-label="Play or pause editing result 12" aria-pressed="false"><video class="hover-play" src="./static/videos/2dd2980caf87450d9ef7e42adb43f2ca_5.mp4" poster="./static/posters/2dd2980caf87450d9ef7e42adb43f2ca_5.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6 has-divider">
-          <video class="hover-play" src="./static/videos/2ef369ebae66464f9d2479057a6bf6d2_1.mp4" poster="./static/posters/2ef369ebae66464f9d2479057a6bf6d2_1.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 13" aria-pressed="false"><video class="hover-play" src="./static/videos/2ef369ebae66464f9d2479057a6bf6d2_1.mp4" poster="./static/posters/2ef369ebae66464f9d2479057a6bf6d2_1.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
-          <video class="hover-play" src="./static/videos/358eb80d4d074dee8cd65b4b0fa187f7_7.mp4" poster="./static/posters/358eb80d4d074dee8cd65b4b0fa187f7_7.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 14" aria-pressed="false"><video class="hover-play" src="./static/videos/358eb80d4d074dee8cd65b4b0fa187f7_7.mp4" poster="./static/posters/358eb80d4d074dee8cd65b4b0fa187f7_7.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6 has-divider">
-          <video class="hover-play" src="./static/videos/36793e98c89f41c186617d4581598ec4_3.mp4" poster="./static/posters/36793e98c89f41c186617d4581598ec4_3.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 15" aria-pressed="false"><video class="hover-play" src="./static/videos/36793e98c89f41c186617d4581598ec4_3.mp4" poster="./static/posters/36793e98c89f41c186617d4581598ec4_3.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
-          <video class="hover-play" src="./static/videos/395af3909e9d4152b713769ae9182ef0_4.mp4" poster="./static/posters/395af3909e9d4152b713769ae9182ef0_4.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 16" aria-pressed="false"><video class="hover-play" src="./static/videos/395af3909e9d4152b713769ae9182ef0_4.mp4" poster="./static/posters/395af3909e9d4152b713769ae9182ef0_4.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6 has-divider">
-          <video class="hover-play" src="./static/videos/3eac61535005406885ad708b4eb375e9_8.mp4" poster="./static/posters/3eac61535005406885ad708b4eb375e9_8.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 17" aria-pressed="false"><video class="hover-play" src="./static/videos/3eac61535005406885ad708b4eb375e9_8.mp4" poster="./static/posters/3eac61535005406885ad708b4eb375e9_8.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
-          <video class="hover-play" src="./static/videos/423121778c4b4e849a029b8281c68bda_2.mp4" poster="./static/posters/423121778c4b4e849a029b8281c68bda_2.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 18" aria-pressed="false"><video class="hover-play" src="./static/videos/423121778c4b4e849a029b8281c68bda_2.mp4" poster="./static/posters/423121778c4b4e849a029b8281c68bda_2.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6 has-divider">
-          <video class="hover-play" src="./static/videos/439ee7ebf11d45739dbef21b91669c1b_6.mp4" poster="./static/posters/439ee7ebf11d45739dbef21b91669c1b_6.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 19" aria-pressed="false"><video class="hover-play" src="./static/videos/439ee7ebf11d45739dbef21b91669c1b_6.mp4" poster="./static/posters/439ee7ebf11d45739dbef21b91669c1b_6.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
-          <video class="hover-play" src="./static/videos/4d350186abc74076ae0c7d91d04a78fa_0.mp4" poster="./static/posters/4d350186abc74076ae0c7d91d04a78fa_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 20" aria-pressed="false"><video class="hover-play" src="./static/videos/4d350186abc74076ae0c7d91d04a78fa_0.mp4" poster="./static/posters/4d350186abc74076ae0c7d91d04a78fa_0.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6 has-divider">
-          <video class="hover-play" src="./static/videos/5c3ec179b3fb4fb1b006ff935d5dfb77_6.mp4" poster="./static/posters/5c3ec179b3fb4fb1b006ff935d5dfb77_6.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 21" aria-pressed="false"><video class="hover-play" src="./static/videos/5c3ec179b3fb4fb1b006ff935d5dfb77_6.mp4" poster="./static/posters/5c3ec179b3fb4fb1b006ff935d5dfb77_6.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
-          <video class="hover-play" src="./static/videos/5c3ec179b3fb4fb1b006ff935d5dfb77_8.mp4" poster="./static/posters/5c3ec179b3fb4fb1b006ff935d5dfb77_8.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 22" aria-pressed="false"><video class="hover-play" src="./static/videos/5c3ec179b3fb4fb1b006ff935d5dfb77_8.mp4" poster="./static/posters/5c3ec179b3fb4fb1b006ff935d5dfb77_8.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6 has-divider">
-          <video class="hover-play" src="./static/videos/5fad3a288517425e96b5cc4a86ebfb46_3.mp4" poster="./static/posters/5fad3a288517425e96b5cc4a86ebfb46_3.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 23" aria-pressed="false"><video class="hover-play" src="./static/videos/5fad3a288517425e96b5cc4a86ebfb46_3.mp4" poster="./static/posters/5fad3a288517425e96b5cc4a86ebfb46_3.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
-          <video class="hover-play" src="./static/videos/63536adbd96147a8869ee36d7f6cfd92_0.mp4" poster="./static/posters/63536adbd96147a8869ee36d7f6cfd92_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 24" aria-pressed="false"><video class="hover-play" src="./static/videos/63536adbd96147a8869ee36d7f6cfd92_0.mp4" poster="./static/posters/63536adbd96147a8869ee36d7f6cfd92_0.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6 has-divider">
-          <video class="hover-play" src="./static/videos/63695230beb44ae68650bdd4d914917f_9.mp4" poster="./static/posters/63695230beb44ae68650bdd4d914917f_9.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 25" aria-pressed="false"><video class="hover-play" src="./static/videos/63695230beb44ae68650bdd4d914917f_9.mp4" poster="./static/posters/63695230beb44ae68650bdd4d914917f_9.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
-          <video class="hover-play" src="./static/videos/670f26a742f748b6b7542e7730f9803a_4.mp4" poster="./static/posters/670f26a742f748b6b7542e7730f9803a_4.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 26" aria-pressed="false"><video class="hover-play" src="./static/videos/670f26a742f748b6b7542e7730f9803a_4.mp4" poster="./static/posters/670f26a742f748b6b7542e7730f9803a_4.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6 has-divider">
-          <video class="hover-play" src="./static/videos/687e47474eb84ef285b1df164e0788fb_7.mp4" poster="./static/posters/687e47474eb84ef285b1df164e0788fb_7.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 27" aria-pressed="false"><video class="hover-play" src="./static/videos/687e47474eb84ef285b1df164e0788fb_7.mp4" poster="./static/posters/687e47474eb84ef285b1df164e0788fb_7.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
-          <video class="hover-play" src="./static/videos/6ea331125ac747c1b8640dc80d90d4cd_2.mp4" poster="./static/posters/6ea331125ac747c1b8640dc80d90d4cd_2.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 28" aria-pressed="false"><video class="hover-play" src="./static/videos/6ea331125ac747c1b8640dc80d90d4cd_2.mp4" poster="./static/posters/6ea331125ac747c1b8640dc80d90d4cd_2.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6 has-divider">
-          <video class="hover-play" src="./static/videos/78c7c67eae00428b9bc50c288776c75b_5.mp4" poster="./static/posters/78c7c67eae00428b9bc50c288776c75b_5.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 29" aria-pressed="false"><video class="hover-play" src="./static/videos/78c7c67eae00428b9bc50c288776c75b_5.mp4" poster="./static/posters/78c7c67eae00428b9bc50c288776c75b_5.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
-          <video class="hover-play" src="./static/videos/7fa9a73e4fc4477d82c8d3dadeb72c65_0.mp4" poster="./static/posters/7fa9a73e4fc4477d82c8d3dadeb72c65_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 30" aria-pressed="false"><video class="hover-play" src="./static/videos/7fa9a73e4fc4477d82c8d3dadeb72c65_0.mp4" poster="./static/posters/7fa9a73e4fc4477d82c8d3dadeb72c65_0.jpg" muted loop playsinline preload="none"></video></button>
         </div>
       </div>
     </details>
     <details style="margin-top:1.25rem;">
       <summary style="cursor:pointer;font-weight:600;font-size:1.1rem;">More results — Part 3 (22 clips)</summary>
-      <p class="is-size-7" style="margin-top:0.5rem;margin-bottom:1rem;color:#888;">
-        Hover a clip to play; move away to pause. On touch devices, tap to toggle.
+      <p class="is-size-7 clip-instructions">
+        Hover to play; move away to pause. Click, tap, or press Enter/Space to toggle.
       </p>
       <div class="columns is-multiline" style="margin-top:1rem;">
         <div class="column is-6 has-divider">
           <div class="pane-labels"><span>Image prompt</span><span>Masked unedited 3D</span><span>Edited 3D</span></div>
-                <video class="hover-play" src="./static/videos/8208ec4c0f204a0f96f41fb4154264ce_0.mp4" poster="./static/posters/8208ec4c0f204a0f96f41fb4154264ce_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+                <button type="button" class="clip-toggle" aria-label="Play or pause editing result 31" aria-pressed="false"><video class="hover-play" src="./static/videos/8208ec4c0f204a0f96f41fb4154264ce_0.mp4" poster="./static/posters/8208ec4c0f204a0f96f41fb4154264ce_0.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
           <div class="pane-labels"><span>Image prompt</span><span>Masked unedited 3D</span><span>Edited 3D</span></div>
-                <video class="hover-play" src="./static/videos/854b37afca0c44c9a0302b879a95bfca_8.mp4" poster="./static/posters/854b37afca0c44c9a0302b879a95bfca_8.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+                <button type="button" class="clip-toggle" aria-label="Play or pause editing result 32" aria-pressed="false"><video class="hover-play" src="./static/videos/854b37afca0c44c9a0302b879a95bfca_8.mp4" poster="./static/posters/854b37afca0c44c9a0302b879a95bfca_8.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6 has-divider">
-          <video class="hover-play" src="./static/videos/8b8e14ddf5104c579a6dd100ff8c0bdb_10.mp4" poster="./static/posters/8b8e14ddf5104c579a6dd100ff8c0bdb_10.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 33" aria-pressed="false"><video class="hover-play" src="./static/videos/8b8e14ddf5104c579a6dd100ff8c0bdb_10.mp4" poster="./static/posters/8b8e14ddf5104c579a6dd100ff8c0bdb_10.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
-          <video class="hover-play" src="./static/videos/8ca1867c11bb48a39eb2aca203beb70b_4.mp4" poster="./static/posters/8ca1867c11bb48a39eb2aca203beb70b_4.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 34" aria-pressed="false"><video class="hover-play" src="./static/videos/8ca1867c11bb48a39eb2aca203beb70b_4.mp4" poster="./static/posters/8ca1867c11bb48a39eb2aca203beb70b_4.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6 has-divider">
-          <video class="hover-play" src="./static/videos/8eda5c8b64f64096b3995a08f6095644_10.mp4" poster="./static/posters/8eda5c8b64f64096b3995a08f6095644_10.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 35" aria-pressed="false"><video class="hover-play" src="./static/videos/8eda5c8b64f64096b3995a08f6095644_10.mp4" poster="./static/posters/8eda5c8b64f64096b3995a08f6095644_10.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
-          <video class="hover-play" src="./static/videos/8eda5c8b64f64096b3995a08f6095644_11.mp4" poster="./static/posters/8eda5c8b64f64096b3995a08f6095644_11.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 36" aria-pressed="false"><video class="hover-play" src="./static/videos/8eda5c8b64f64096b3995a08f6095644_11.mp4" poster="./static/posters/8eda5c8b64f64096b3995a08f6095644_11.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6 has-divider">
-          <video class="hover-play" src="./static/videos/95364de582474cf3ab38ca4bae946652_1.mp4" poster="./static/posters/95364de582474cf3ab38ca4bae946652_1.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 37" aria-pressed="false"><video class="hover-play" src="./static/videos/95364de582474cf3ab38ca4bae946652_1.mp4" poster="./static/posters/95364de582474cf3ab38ca4bae946652_1.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
-          <video class="hover-play" src="./static/videos/9d6b66aba431493097f289a6e42f3614_0.mp4" poster="./static/posters/9d6b66aba431493097f289a6e42f3614_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 38" aria-pressed="false"><video class="hover-play" src="./static/videos/9d6b66aba431493097f289a6e42f3614_0.mp4" poster="./static/posters/9d6b66aba431493097f289a6e42f3614_0.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6 has-divider">
-          <video class="hover-play" src="./static/videos/9f43d0ac857541e8a3a92e20ba284c44_2.mp4" poster="./static/posters/9f43d0ac857541e8a3a92e20ba284c44_2.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 39" aria-pressed="false"><video class="hover-play" src="./static/videos/9f43d0ac857541e8a3a92e20ba284c44_2.mp4" poster="./static/posters/9f43d0ac857541e8a3a92e20ba284c44_2.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
-          <video class="hover-play" src="./static/videos/FishThorn_0.mp4" poster="./static/posters/FishThorn_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 40" aria-pressed="false"><video class="hover-play" src="./static/videos/FishThorn_0.mp4" poster="./static/posters/FishThorn_0.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6 has-divider">
-          <video class="hover-play" src="./static/videos/HorseHat_0.mp4" poster="./static/posters/HorseHat_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 41" aria-pressed="false"><video class="hover-play" src="./static/videos/HorseHat_0.mp4" poster="./static/posters/HorseHat_0.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
-          <video class="hover-play" src="./static/videos/NingguangHand_0.mp4" poster="./static/posters/NingguangHand_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 42" aria-pressed="false"><video class="hover-play" src="./static/videos/NingguangHand_0.mp4" poster="./static/posters/NingguangHand_0.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6 has-divider">
-          <video class="hover-play" src="./static/videos/NingguangLeg_0.mp4" poster="./static/posters/NingguangLeg_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 43" aria-pressed="false"><video class="hover-play" src="./static/videos/NingguangLeg_0.mp4" poster="./static/posters/NingguangLeg_0.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
-          <video class="hover-play" src="./static/videos/PotPot1_0.mp4" poster="./static/posters/PotPot1_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 44" aria-pressed="false"><video class="hover-play" src="./static/videos/PotPot1_0.mp4" poster="./static/posters/PotPot1_0.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6 has-divider">
-          <video class="hover-play" src="./static/videos/PotPot2_0.mp4" poster="./static/posters/PotPot2_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 45" aria-pressed="false"><video class="hover-play" src="./static/videos/PotPot2_0.mp4" poster="./static/posters/PotPot2_0.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
-          <video class="hover-play" src="./static/videos/PotPot3_0.mp4" poster="./static/posters/PotPot3_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 46" aria-pressed="false"><video class="hover-play" src="./static/videos/PotPot3_0.mp4" poster="./static/posters/PotPot3_0.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6 has-divider">
-          <video class="hover-play" src="./static/videos/a95c590e89444458b53a15190c7560c3_2.mp4" poster="./static/posters/a95c590e89444458b53a15190c7560c3_2.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 47" aria-pressed="false"><video class="hover-play" src="./static/videos/a95c590e89444458b53a15190c7560c3_2.mp4" poster="./static/posters/a95c590e89444458b53a15190c7560c3_2.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
-          <video class="hover-play" src="./static/videos/b1d515a6cbe847ea91e2c5680b8fc67f_6.mp4" poster="./static/posters/b1d515a6cbe847ea91e2c5680b8fc67f_6.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 48" aria-pressed="false"><video class="hover-play" src="./static/videos/b1d515a6cbe847ea91e2c5680b8fc67f_6.mp4" poster="./static/posters/b1d515a6cbe847ea91e2c5680b8fc67f_6.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6 has-divider">
-          <video class="hover-play" src="./static/videos/b34bc2a0607846aaae8636a9bea7e43d_3.mp4" poster="./static/posters/b34bc2a0607846aaae8636a9bea7e43d_3.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 49" aria-pressed="false"><video class="hover-play" src="./static/videos/b34bc2a0607846aaae8636a9bea7e43d_3.mp4" poster="./static/posters/b34bc2a0607846aaae8636a9bea7e43d_3.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
-          <video class="hover-play" src="./static/videos/b8915325eadc4f86af543daaf10702de_3.mp4" poster="./static/posters/b8915325eadc4f86af543daaf10702de_3.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 50" aria-pressed="false"><video class="hover-play" src="./static/videos/b8915325eadc4f86af543daaf10702de_3.mp4" poster="./static/posters/b8915325eadc4f86af543daaf10702de_3.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6 has-divider">
-          <video class="hover-play" src="./static/videos/c209c30d7a1843918ea5df1c61d594a5_4.mp4" poster="./static/posters/c209c30d7a1843918ea5df1c61d594a5_4.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 51" aria-pressed="false"><video class="hover-play" src="./static/videos/c209c30d7a1843918ea5df1c61d594a5_4.mp4" poster="./static/posters/c209c30d7a1843918ea5df1c61d594a5_4.jpg" muted loop playsinline preload="none"></video></button>
         </div>
         <div class="column is-6">
-          <video class="hover-play" src="./static/videos/da7af66ce5df4629802e97dc03d186f5_0.mp4" poster="./static/posters/da7af66ce5df4629802e97dc03d186f5_0.jpg" muted loop playsinline preload="none" style="width:100%;height:auto;display:block;"></video>
+          <button type="button" class="clip-toggle" aria-label="Play or pause editing result 52" aria-pressed="false"><video class="hover-play" src="./static/videos/da7af66ce5df4629802e97dc03d186f5_0.mp4" poster="./static/posters/da7af66ce5df4629802e97dc03d186f5_0.jpg" muted loop playsinline preload="none"></video></button>
         </div>
       </div>
     </details>
@@ -435,9 +393,19 @@
     author    = {Yin, Youtan and Zhou, Yanning and Wei, Jiacheng and Yang, Xiaofeng
                  and Zhang, Jun and Bai, Jiayang and Ye, Jingwen and Zhang, Weidong
                  and Lin, Guosheng},
+    editor    = {Favaro, Paolo and Kukelova, Zuzana and Maki, Atsuto
+                 and Rohrbach, Anna and Schindler, Konrad and Tombari, Federico},
     title     = {EditVerse3D: High-Quality 3D Object Editing with Region-Aware Learning},
-    booktitle = {European Conference on Computer Vision (ECCV)},
+    booktitle = {Computer Vision -- ECCV 2026},
+    series    = {Lecture Notes in Computer Science},
+    volume    = {17010},
+    pages     = {494--514},
+    publisher = {Springer Nature Switzerland},
+    address   = {Cham},
     year      = {2026},
+    isbn      = {978-3-032-36839-3},
+    doi       = {10.1007/978-3-032-36839-3_27},
+    url       = {https://doi.org/10.1007/978-3-032-36839-3_27},
 }
 </code></pre>
   </div>
@@ -451,7 +419,7 @@
         <div class="content has-text-centered">
           <p>
             This website is licensed under a
-            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative
             Commons Attribution-ShareAlike 4.0 International License</a>.
             Template adapted from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
           </p>
